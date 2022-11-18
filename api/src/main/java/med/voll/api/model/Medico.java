@@ -2,6 +2,7 @@ package med.voll.api.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import med.voll.api.dto.medico.DadosCadastroMedio;
 import med.voll.api.dto.medico.Especialidade;
 
 @Entity(name = "Medico")
@@ -22,6 +23,12 @@ public class Medico {
     @Embedded
     private Endereco endereco;
 
-
+    public Medico(DadosCadastroMedio dados){
+        this.nome = dados.nome();
+        this.email = dados.email();
+        this.crm = dados.crm();
+        this.especialidade = dados.especialidade();
+        this.endereco = new Endereco(dados.endereco());
+    }
 
 }
