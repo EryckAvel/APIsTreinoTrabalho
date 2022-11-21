@@ -12,18 +12,20 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/clientes")
+@RequestMapping("/cliente")
 public class ClienteController {
 
     @Autowired
     private ClientesRepositorys clientesRepositorys;
 
     @GetMapping
-    public List<Cliente> getClienteById(){
+    @ResponseBody
+    public List<Cliente> listaCliente(){
         return clientesRepositorys.findAll();
     }
 
     @GetMapping("/{id}")
+    @ResponseBody
     public ResponseEntity<Cliente> getClienteById(@PathVariable("id") Integer id){
         Optional<Cliente> optionalCliente = clientesRepositorys.findById(id);
         if (optionalCliente.isPresent()){
