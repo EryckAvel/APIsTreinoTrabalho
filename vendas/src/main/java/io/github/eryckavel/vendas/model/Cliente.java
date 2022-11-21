@@ -17,6 +17,9 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "cpf", nullable = false, unique = true, length = 11)
+    private String cpf;
+    @Column(name = "nome", nullable = false)
     private String nome;
     @JsonIgnore
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
