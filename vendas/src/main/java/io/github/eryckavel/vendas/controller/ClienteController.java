@@ -5,15 +5,16 @@ import io.github.eryckavel.vendas.repository.ClientesRepositorys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/clientes")
 public class ClienteController {
 
@@ -21,13 +22,12 @@ public class ClienteController {
     private ClientesRepositorys clientesRepositorys;
 
     @GetMapping
-    @ResponseBody
     public List<Cliente> listaCliente(){
         return clientesRepositorys.findAll();
     }
 
     @GetMapping("/busca")
-    public ResponseEntity<?> find(Cliente filtro){
+    public List<Cliente> find(Cliente filtro){
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
                 .withIgnoreCase()
@@ -35,53 +35,50 @@ public class ClienteController {
                         ExampleMatcher.StringMatcher.CONTAINING
                 );
         Example example = Example.of(filtro, matcher);
-        List<Cliente> lista = clientesRepositorys.findAll(example);
-        return  ResponseEntity.ok(lista);
+        return clientesRepositorys.findAll(example);
     }
 
     @GetMapping("/busca/{id}")
-    @ResponseBody
-    public ResponseEntity<Cliente> consultaCliente(@PathVariable("id") Integer id){
-        Optional<Cliente> optionalCliente = clientesRepositorys.findById(id);
-        if (optionalCliente.isPresent()){
-            return ResponseEntity.ok(optionalCliente.get());
-        }
-        return ResponseEntity.notFound().build();
+    public Cliente consultaCliente(@PathVariable("id") Integer id){
+        return clientesRepositorys
+                .findById(id)
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente não encotrado"));
     }
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Cliente> save(@RequestBody Cliente cliente){
-        Cliente clienteSalvo = clientesRepositorys.save(cliente);
-        return ResponseEntity.ok(clienteSalvo);
-        //return ResponseEntity.ok().body("Inserção realizada com sucesso!");
+    @ResponseStatus(HttpStatus.CREATED)
+    public Cliente save(@RequestBody Cliente cliente){
+        return clientesRepositorys.save(cliente);
     }
 
     @DeleteMapping("{id}")
-    @ResponseBody
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public ResponseEntity<?> delete(@PathVariable Integer id){
-        Optional<Cliente> clienteOptional= clientesRepositorys.findById(id);
-        if (clienteOptional.isPresent()){
-            clientesRepositorys.delete(clienteOptional.get());
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
+    public void delete(@PathVariable Integer id){
+        clientesRepositorys
+                .findById(id)
+                .map(cliente -> {
+                    clientesRepositorys.delete(cliente);
+                    return cliente;
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente não encontrado"));
+
     }
 
     @PutMapping("{id}")
-    @ResponseBody
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public ResponseEntity<?> atualizar(@RequestBody Cliente cliente,
+    public void atualizar(@RequestBody Cliente cliente,
                                        @PathVariable("id") Integer id){
-           return clientesRepositorys
+           clientesRepositorys
                    .findById(id)
                    .map(clienteExistente ->{
                       cliente.setId(clienteExistente.getId());
                       clientesRepositorys.save(cliente);
-                      return ResponseEntity.noContent().build();
+                      return clienteExistente;
                    })
-                   .orElseGet(()-> ResponseEntity.notFound().build());
+                   .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
 
     }
 
