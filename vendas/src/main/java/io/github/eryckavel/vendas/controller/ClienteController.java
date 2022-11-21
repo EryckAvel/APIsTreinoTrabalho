@@ -3,6 +3,8 @@ package io.github.eryckavel.vendas.controller;
 import io.github.eryckavel.vendas.model.Cliente;
 import io.github.eryckavel.vendas.repository.ClientesRepositorys;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,9 +26,22 @@ public class ClienteController {
         return clientesRepositorys.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/busca")
+    public ResponseEntity<?> find(Cliente filtro){
+        ExampleMatcher matcher = ExampleMatcher
+                .matching()
+                .withIgnoreCase()
+                .withStringMatcher(
+                        ExampleMatcher.StringMatcher.CONTAINING
+                );
+        Example example = Example.of(filtro, matcher);
+        List<Cliente> lista = clientesRepositorys.findAll(example);
+        return  ResponseEntity.ok(lista);
+    }
+
+    @GetMapping("/busca/{id}")
     @ResponseBody
-    public ResponseEntity<Cliente> getClienteById(@PathVariable("id") Integer id){
+    public ResponseEntity<Cliente> consultaCliente(@PathVariable("id") Integer id){
         Optional<Cliente> optionalCliente = clientesRepositorys.findById(id);
         if (optionalCliente.isPresent()){
             return ResponseEntity.ok(optionalCliente.get());
