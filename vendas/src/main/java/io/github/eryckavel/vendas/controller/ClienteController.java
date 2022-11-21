@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/cliente")
+@RequestMapping("/clientes")
 public class ClienteController {
 
     @Autowired
@@ -36,11 +36,22 @@ public class ClienteController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity save(@RequestBody Cliente cliente){
+    public ResponseEntity<Cliente> save(@RequestBody Cliente cliente){
         Cliente clienteSalvo = clientesRepositorys.save(cliente);
         return ResponseEntity.ok(clienteSalvo);
+        //return ResponseEntity.ok().body("Inserção realizada com sucesso!");
     }
 
-
+    @DeleteMapping("{id}")
+    @ResponseBody
+    @Transactional
+    public ResponseEntity delete(@PathVariable Integer id){
+        Optional<Cliente> clienteOptional= clientesRepositorys.findById(id);
+        if (clienteOptional.isPresent()){
+            clientesRepositorys.delete(clienteOptional.get());
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 
 }
