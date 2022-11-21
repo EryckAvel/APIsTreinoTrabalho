@@ -10,6 +10,7 @@ public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    private String nome;
     private String descricao;
     @Column(name = "preco_unitario")
     private BigDecimal preco;
@@ -20,6 +21,14 @@ public class Produto {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getNome() {
+        return nome;
     }
 
     public String getDescricao() {

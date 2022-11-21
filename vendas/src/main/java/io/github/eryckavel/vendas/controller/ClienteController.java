@@ -38,7 +38,7 @@ public class ClienteController {
         return clientesRepositorys.findAll(example);
     }
 
-    @GetMapping("/busca/{id}")
+    @GetMapping("/{id}")
     public Cliente consultaCliente(@PathVariable("id") Integer id){
         return clientesRepositorys
                 .findById(id)
@@ -52,7 +52,7 @@ public class ClienteController {
         return clientesRepositorys.save(cliente);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
     public void delete(@PathVariable Integer id){
@@ -66,7 +66,7 @@ public class ClienteController {
 
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
     public void atualizar(@RequestBody Cliente cliente,
