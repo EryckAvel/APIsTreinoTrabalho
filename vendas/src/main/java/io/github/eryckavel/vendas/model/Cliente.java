@@ -1,6 +1,7 @@
 package io.github.eryckavel.vendas.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,15 +9,18 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Table(name = "cliente")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Cliente {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
     @JsonIgnore
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
     private Set<Pedido> pedidos;
-
 
     @Override
     public boolean equals(Object o) {
@@ -31,32 +35,4 @@ public class Cliente {
         return Objects.hash(getId());
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Set<Pedido> getPedidos() {
-        return pedidos;
-    }
-    public void setPedidos(Set<Pedido> pedidos) {
-        this.pedidos = pedidos;
-    }
-    public Cliente(Integer id, String nome) {
-        this.nome = nome;
-    }
-    public Cliente(){}
-    public String getNome() {
-        return nome;
-    }
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String toString(){
-        return "Cliente {" + "id=" + id + ", nome="  + nome + '\'' + '}';
-    }
 }
