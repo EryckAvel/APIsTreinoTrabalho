@@ -2,11 +2,13 @@ package io.github.eryckavel.vendas.services.impl;
 
 import io.github.eryckavel.vendas.dto.ItemPedidoDto;
 import io.github.eryckavel.vendas.dto.PedidoDto;
+import io.github.eryckavel.vendas.exception.PedidoNaoEncontradoException;
 import io.github.eryckavel.vendas.exception.RegraNegocioException;
 import io.github.eryckavel.vendas.model.Cliente;
 import io.github.eryckavel.vendas.model.ItemPedido;
 import io.github.eryckavel.vendas.model.Pedido;
 import io.github.eryckavel.vendas.model.Produto;
+import io.github.eryckavel.vendas.model.enums.StatusPedido;
 import io.github.eryckavel.vendas.repository.ClientesRepositorys;
 import io.github.eryckavel.vendas.repository.ItemPedidoRepository;
 import io.github.eryckavel.vendas.repository.PedidoRepository;
@@ -48,6 +50,7 @@ public class PedidoServiceImpl implements PedidosServices {
         pedido.setTotal(dto.getTotal());
         pedido.setDataPedido(LocalDate.now());
         pedido.setCliente(cliente);
+        pedido.setStatus(StatusPedido.REALIZADO);
 
         List<ItemPedido> itemPedidos = converterItens(pedido, dto.getItens());
         pedidoRepository.save(pedido);
@@ -60,6 +63,18 @@ public class PedidoServiceImpl implements PedidosServices {
     public Optional<Pedido> obterPedidoCompleto(Integer id) {
 
         return pedidoRepository.findByIdFatchItens(id);
+    }
+
+    @Override
+    @Transactional
+    public void atualizaStatus(Integer id, StatusPedido statusPedido) {
+        pedidoRepository
+                .findById(id)
+                .map(pedido -> {
+                    pedido.setStatus(statusPedido);
+                    return pedidoRepository.save(pedido);
+                })
+                .orElseThrow(() -> new PedidoNaoEncontradoException());
     }
 
     @Transactional

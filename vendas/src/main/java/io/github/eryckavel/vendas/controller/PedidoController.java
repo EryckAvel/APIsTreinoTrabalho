@@ -1,11 +1,13 @@
 package io.github.eryckavel.vendas.controller;
 
+import io.github.eryckavel.vendas.dto.AtualizacaoStatusPedidoDto;
 import io.github.eryckavel.vendas.dto.InformacaoItemPedidoDto;
 import io.github.eryckavel.vendas.dto.InformacaoPedidoDto;
 import io.github.eryckavel.vendas.dto.PedidoDto;
 import io.github.eryckavel.vendas.model.Cliente;
 import io.github.eryckavel.vendas.model.ItemPedido;
 import io.github.eryckavel.vendas.model.Pedido;
+import io.github.eryckavel.vendas.model.enums.StatusPedido;
 import io.github.eryckavel.vendas.repository.PedidoRepository;
 import io.github.eryckavel.vendas.services.PedidosServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,13 @@ public class PedidoController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido não encontrado!"));
     }
 
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void  updateStatus(@PathVariable("id") Integer id, @RequestBody AtualizacaoStatusPedidoDto dto){
+        String novoStatus = dto.getNovoStatus();
+        pedidosServices.atualizaStatus(id, StatusPedido.valueOf(novoStatus));
+    }
+
     private InformacaoPedidoDto converter(Pedido pedido){
         return InformacaoPedidoDto
                 .builder()
@@ -53,6 +62,7 @@ public class PedidoController {
                 .cpf(pedido.getCliente().getCpf())
                 .nomeCliente(pedido.getCliente().getNome())
                 .total(pedido.getTotal())
+                .status((pedido.getStatus().name()))
                 .itens(converterItens(pedido.getItens()))
                 .build();
 

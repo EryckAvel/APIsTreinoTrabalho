@@ -1,11 +1,11 @@
 package io.github.eryckavel.vendas.model;
 
+import io.github.eryckavel.vendas.model.enums.StatusPedido;
 import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -25,6 +25,9 @@ public class Pedido {
     private LocalDate dataPedido;
     @Column(name = "total",precision = 20, scale = 2)
     private BigDecimal total;
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private StatusPedido status;
     @OneToMany(mappedBy = "pedido")
     private  List<ItemPedido> itens;
 
