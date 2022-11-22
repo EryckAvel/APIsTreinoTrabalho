@@ -70,7 +70,7 @@ public class ClienteController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Transactional
-    public void atualizar(@RequestBody Cliente cliente,
+    public void atualizar(@RequestBody @Valid Cliente cliente,
                                        @PathVariable("id") Integer id){
            clientesRepositorys
                    .findById(id)
