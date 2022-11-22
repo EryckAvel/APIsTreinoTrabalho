@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -20,6 +21,7 @@ public class Cliente {
     @Column(name = "cpf", nullable = false, unique = true, length = 11)
     private String cpf;
     @Column(name = "nome", nullable = false)
+    @NotEmpty(message = "Campo nome obrigatorio.")
     private String nome;
     @JsonIgnore
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)

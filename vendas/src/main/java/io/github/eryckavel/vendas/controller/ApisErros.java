@@ -11,6 +11,9 @@ public class ApisErros {
     @Getter
     private final List<String> erros;
 
+    public ApisErros(List<String> erros) {
+        this.erros = erros;
+    }
 
     public ApisErros (String mensagemErro){
         this.erros = Arrays.asList((mensagemErro));
