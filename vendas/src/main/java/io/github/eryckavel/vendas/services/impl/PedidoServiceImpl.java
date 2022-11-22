@@ -58,6 +58,7 @@ public class PedidoServiceImpl implements PedidosServices {
 
     @Override
     public Optional<Pedido> obterPedidoCompleto(Integer id) {
+
         return pedidoRepository.findByIdFatchItens(id);
     }
 

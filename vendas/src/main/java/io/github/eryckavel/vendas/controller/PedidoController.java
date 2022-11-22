@@ -37,7 +37,7 @@ public class PedidoController {
         return pedido.getId();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public InformacaoPedidoDto getByid(@PathVariable("id") Integer id){
         return pedidosServices
                 .obterPedidoCompleto(id)
@@ -53,12 +53,12 @@ public class PedidoController {
                 .cpf(pedido.getCliente().getCpf())
                 .nomeCliente(pedido.getCliente().getNome())
                 .total(pedido.getTotal())
-                .itens(converter(pedido.getItens()))
+                .itens(converterItens(pedido.getItens()))
                 .build();
 
     }
 
-    private List<InformacaoItemPedidoDto> converter(List<ItemPedido> itens){
+    private List<InformacaoItemPedidoDto> converterItens(List<ItemPedido> itens){
         if (CollectionUtils.isEmpty(itens)){
             return Collections.emptyList();
         }
