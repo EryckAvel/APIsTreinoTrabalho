@@ -1,4 +1,4 @@
-package br.com.erudio.apigateway;
+package br.com.erudio.apigateway.controller;
 
 import org.springframework.web.bind.annotation.*;
 

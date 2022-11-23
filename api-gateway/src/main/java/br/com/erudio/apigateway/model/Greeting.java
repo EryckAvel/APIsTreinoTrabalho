@@ -1,4 +1,4 @@
-package br.com.erudio.apigateway;
+package br.com.erudio.apigateway.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
