@@ -8,15 +8,70 @@ import java.util.concurrent.atomic.AtomicLong;
 public class GreetingController {
 
     private final AtomicLong counter = new AtomicLong();
-    @RequestMapping(value = "/sum/{numberOne}/{numberTwo}",
-            method = RequestMethod.GET)
-    public double sum(
+    @RequestMapping(value = "/soma/{numberOne}/{numberTwo}",
+                    method = RequestMethod.GET)
+    public double soma(
             @PathVariable(value = "numberOne") String numberOne,
             @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
         if (!isNumeric(numberOne) || !isNumeric(numberTwo)) {
             throw new UnsupportedOperationException("Por favor insira um valor numerico!");
         }
         return convertToDouble(numberOne) + convertToDouble(numberTwo);
+    }
+
+    @RequestMapping(value = "/multiplicacao/{numberOne}/{numberTwo}",
+            method = RequestMethod.GET)
+    public double multiplicacao(
+            @PathVariable(value = "numberOne") String numberOne,
+            @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
+        if (!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+            throw new UnsupportedOperationException("Por favor insira um valor numerico!");
+        }
+        return convertToDouble(numberOne) * convertToDouble(numberTwo);
+    }
+
+    @RequestMapping(value = "/divisao/{numberOne}/{numberTwo}",
+            method = RequestMethod.GET)
+    public double divisao(
+            @PathVariable(value = "numberOne") String numberOne,
+            @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
+        if (!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+            throw new UnsupportedOperationException("Por favor insira um valor numerico!");
+        }
+        return convertToDouble(numberOne) / convertToDouble(numberTwo);
+    }
+
+    @RequestMapping(value = "/subtracao/{numberOne}/{numberTwo}",
+            method = RequestMethod.GET)
+    public double subtracao(
+            @PathVariable(value = "numberOne") String numberOne,
+            @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
+        if (!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+            throw new UnsupportedOperationException("Por favor insira um valor numerico!");
+        }
+        return convertToDouble(numberOne) - convertToDouble(numberTwo);
+    }
+
+    @RequestMapping(value = "/media/{numberOne}/{numberTwo}",
+            method = RequestMethod.GET)
+    public double media(
+            @PathVariable(value = "numberOne") String numberOne,
+            @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
+        if (!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+            throw new UnsupportedOperationException("Por favor insira um valor numerico!");
+        }
+        return (convertToDouble(numberOne) + convertToDouble(numberTwo))/2;
+    }
+
+    @RequestMapping(value = "/raiz/{numberOne}/{numberTwo}",
+            method = RequestMethod.GET)
+    public double raiz(
+            @PathVariable(value = "numberOne") String numberOne,
+            @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
+        if (!isNumeric(numberOne) || !isNumeric(numberTwo)) {
+            throw new UnsupportedOperationException("Por favor insira um valor numerico!");
+        }
+        return Math.sqrt(convertToDouble(numberOne)) + Math.sqrt(convertToDouble(numberTwo));
     }
 
     private Double convertToDouble(String strNumber) {
