@@ -1,12 +1,11 @@
 package models;
 
 import jakarta.persistence.*;
-import jdk.jshell.Snippet;
-import models.enums.Cargo;
 import models.enums.Genero;
 import models.enums.StatusSituação;
 import org.hibernate.validator.constraints.br.CPF;
 
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
