@@ -1,5 +1,6 @@
 package br.com.erudio.apigateway.services;
 
+import br.com.erudio.apigateway.dto.PessoaDto;
 import br.com.erudio.apigateway.exception.ResouceNotFoundException;
 import br.com.erudio.apigateway.model.Pessoa;
 import br.com.erudio.apigateway.repository.PessoaRepository;
@@ -26,22 +27,22 @@ public class PessoaServices {
                 .orElseThrow(() -> new ResouceNotFoundException("Não existe nada gravado nesse ID"));
     }
 
-    public List<Pessoa> findAll(){
+    public List<PessoaDto> findAll(){
         return pessoaRepository.findAll();
     }
 
-    public Pessoa create(Pessoa pessoa){
-        return pessoaRepository.save(pessoa);
+    public PessoaDto create(PessoaDto dto){
+        return pessoaRepository.save(dto);
     }
 
-    public Pessoa update(Pessoa pessoa){
-        var entity = pessoaRepository.findById(pessoa.getId())
+    public PessoaDto update(PessoaDto dto){
+        var entity = pessoaRepository.findById(dto.getId())
                 .orElseThrow(() -> new ResouceNotFoundException("Não existe nada gravado nesse ID"));
-        entity.setPrimeiroNome(pessoa.getPrimeiroNome());
-        entity.setUltimoNome(pessoa.getUltimoNome());
-        entity.setEndereco(pessoa.getEndereco());
-        entity.setGenero(pessoa.getGenero());
-        return pessoaRepository.save(pessoa);
+        entity.setPrimeiroNome(dto.getPrimeiroNome());
+        entity.setUltimoNome(dto.getUltimoNome());
+        entity.setEndereco(dto.getEndereco());
+        entity.setGenero(dto.getGenero());
+        return pessoaRepository.save(dto);
     }
 
     public void delete(Long id){

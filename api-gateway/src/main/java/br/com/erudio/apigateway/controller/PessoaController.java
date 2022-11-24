@@ -1,9 +1,11 @@
 package br.com.erudio.apigateway.controller;
 
+import br.com.erudio.apigateway.dto.PessoaDto;
 import br.com.erudio.apigateway.model.Pessoa;
 import br.com.erudio.apigateway.services.PessoaServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public class PessoaController {
 
 
     @GetMapping
-    public List<Pessoa> findAll(){
+    public List<PessoaDto> findAll(){
         return pessoaServices.findAll();
     }
 
@@ -39,8 +41,9 @@ public class PessoaController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable(value = "id") Long id) throws Exception {
+    public ResponseEntity<?> delete(@PathVariable(value = "id") Long id) throws Exception {
         pessoaServices.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

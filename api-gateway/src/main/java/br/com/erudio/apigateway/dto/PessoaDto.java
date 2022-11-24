@@ -1,28 +1,24 @@
-package br.com.erudio.apigateway.model;
+package br.com.erudio.apigateway.dto;
 
-import jakarta.persistence.*;
 
-import javax.naming.Name;
 import java.io.Serializable;
 import java.util.Objects;
 
 
-@Entity
-@Table(name = "Pessoa")
-public class Pessoa implements Serializable {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PessoaDto implements Serializable {
+
     private Long id;
-    @Column(name = "primeiro_nome", nullable = false, length = 80)
+
     private String primeiroNome;
-    @Column(name = "ultimo_nome", nullable = false, length = 80)
+
     private String ultimoNome;
-    @Column(nullable = false, length = 100)
+
     private String endereco;
-    @Column(nullable = false, length = 10)
+
     private String genero;
 
-    public Pessoa(){}
+    public PessoaDto(){}
 
     public Long getId() {
         return id;
@@ -67,7 +63,7 @@ public class Pessoa implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Pessoa pessoa)) return false;
+        if (!(o instanceof PessoaDto pessoa)) return false;
         return Objects.equals(getId(), pessoa.getId()) && Objects.equals(getPrimeiroNome(), pessoa.getPrimeiroNome()) && Objects.equals(getUltimoNome(), pessoa.getUltimoNome()) && Objects.equals(getEndereco(), pessoa.getEndereco()) && Objects.equals(getGenero(), pessoa.getGenero());
     }
 
