@@ -1,6 +1,9 @@
 package br.com.erudio.apigateway.services;
 
+import br.com.erudio.apigateway.exception.ResouceNotFoundException;
 import br.com.erudio.apigateway.model.Pessoa;
+import br.com.erudio.apigateway.repository.PessoaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,50 +14,40 @@ import java.util.logging.Logger;
 @Service
 public class PessoaServices {
 
-    private final AtomicLong counter = new AtomicLong();
     private Logger logger = Logger.getLogger(PessoaServices.class.getName());
 
-    public Pessoa findById(String id){
+    @Autowired
+    PessoaRepository pessoaRepository;
+
+    public Pessoa findById(Long id){
         logger.info("Procurando uma pessoa!");
-        Pessoa pessoa = new Pessoa();
-        pessoa.setId(counter.incrementAndGet());
-        pessoa.setPrimeiroNome("Eryck");
-        pessoa.setUltimoNome("Avelino");
-        pessoa.setEndereco("Av E");
-        pessoa.setGenero("Masculino");
-        return pessoa;
+
+        return pessoaRepository.findById(id)
+                .orElseThrow(() -> new ResouceNotFoundException("Não existe nada gravado nesse ID"));
     }
 
     public List<Pessoa> findAll(){
-        List<Pessoa> pessoas = new ArrayList<>();
-        for (int i = 0; i < 8; i++){
-           Pessoa pessoa = mockPerson(i);
-           pessoas.add(pessoa);
-        }
-        return pessoas;
-    }
-
-    private Pessoa mockPerson(int i) {
-        Pessoa pessoa = new Pessoa();
-        pessoa.setId(counter.incrementAndGet());
-        pessoa.setPrimeiroNome("Nome da pessoa " + i);
-        pessoa.setUltimoNome("Utilmo nome da pessoa" + i);
-        pessoa.setEndereco("Endereço " + i);
-        pessoa.setGenero("Genero " + i);
-        return pessoa;
+        return pessoaRepository.findAll();
     }
 
     public Pessoa create(Pessoa pessoa){
-
-        return pessoa;
+        return pessoaRepository.save(pessoa);
     }
 
     public Pessoa update(Pessoa pessoa){
-        return pessoa;
+        var entity = pessoaRepository.findById(pessoa.getId())
+                .orElseThrow(() -> new ResouceNotFoundException("Não existe nada gravado nesse ID"));
+        entity.setPrimeiroNome(pessoa.getPrimeiroNome());
+        entity.setUltimoNome(pessoa.getUltimoNome());
+        entity.setEndereco(pessoa.getEndereco());
+        entity.setGenero(pessoa.getGenero());
+        return pessoaRepository.save(pessoa);
     }
 
-    public void delete(String id){
-
+    public void delete(Long id){
+        var entity = pessoaRepository.findById(id)
+                .orElseThrow(() -> new ResouceNotFoundException("Não existe nada gravado nesse ID"));
+        pessoaRepository.delete(entity);
     }
 
 }

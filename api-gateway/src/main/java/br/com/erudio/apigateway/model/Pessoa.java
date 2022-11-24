@@ -19,7 +19,7 @@ public class Pessoa implements Serializable {
     private String ultimoNome;
     @Column(nullable = false, length = 100)
     private String endereco;
-    @Column(nullable = false, length = 6)
+    @Column(nullable = false, length = 10)
     private String genero;
 
     public Pessoa(){}
