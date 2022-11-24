@@ -1,20 +1,25 @@
 package br.com.erudio.apigateway.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
 
+import javax.naming.Name;
 import java.io.Serializable;
 import java.util.Objects;
 
 
+@Entity
+@Table(name = "Pessoa")
 public class Pessoa implements Serializable {
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "primeiro_nome", nullable = false, length = 80)
     private String primeiroNome;
+    @Column(name = "ultimo_nome", nullable = false, length = 80)
     private String ultimoNome;
+    @Column(nullable = false, length = 100)
     private String endereco;
+    @Column(nullable = false, length = 6)
     private String genero;
 
     public Pessoa(){}
