@@ -1,11 +1,9 @@
-package models;
+package br.com.emp.gerenfunci.empresa.models;
 
+import br.com.emp.gerenfunci.empresa.models.enums.Genero;
+import br.com.emp.gerenfunci.empresa.models.enums.StatusSituacao;
 import jakarta.persistence.*;
-import models.enums.Genero;
-import models.enums.StatusSituação;
-import org.hibernate.validator.constraints.br.CPF;
 
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -19,7 +17,6 @@ public class Funcionario {
     private String nomeCompleto;
     @Column(nullable = false, length = 100)
     private Integer idade;
-    @CPF
     @Column(nullable = false, unique = true, length = 11)
     private String cpf;
     @Column(nullable = false, length = 80)
@@ -27,17 +24,39 @@ public class Funcionario {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Genero genero;
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @ManyToOne
+    @
+    @JoinColumn(nullable = false)
     private Cargo cargo;
     @Column(length = 9, precision = 2, nullable = false)
     private Double salario;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private StatusSituação status;
+    private StatusSituacao status;
 
     public Funcionario() {
 
+    }
+
+    public Funcionario(
+            Long id,
+            String nomeCompleto,
+            Integer idade,
+            String cpf,
+            String email,
+            Genero genero,
+            Cargo cargo,
+            Double salario,
+            StatusSituacao status) {
+        this.id = id;
+        this.nomeCompleto = nomeCompleto;
+        this.idade = idade;
+        this.cpf = cpf;
+        this.email = email;
+        this.genero = genero;
+        this.cargo = cargo;
+        this.salario = salario;
+        this.status = status;
     }
 
     @Override
@@ -132,11 +151,11 @@ public class Funcionario {
         this.salario = salario;
     }
 
-    public StatusSituação getStatus() {
+    public StatusSituacao getStatus() {
         return status;
     }
 
-    public void setStatus(StatusSituação status) {
+    public void setStatus(StatusSituacao status) {
         this.status = status;
     }
 }

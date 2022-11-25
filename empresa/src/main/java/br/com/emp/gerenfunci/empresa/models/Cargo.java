@@ -1,4 +1,4 @@
-package models;
+package br.com.emp.gerenfunci.empresa.models;
 
 import jakarta.persistence.*;
 
