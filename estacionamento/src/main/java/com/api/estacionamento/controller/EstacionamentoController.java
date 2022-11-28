@@ -6,6 +6,7 @@ import com.api.estacionamento.services.EstacionamentoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -37,6 +41,20 @@ public class EstacionamentoController {
         BeanUtils.copyProperties(estacionamentoDto, estacionamento);
         estacionamento.setDataRegistro(LocalDateTime.now(ZoneId.of("UTC")));
         return ResponseEntity.status(HttpStatus.CREATED).body(estacionamentoService.save(estacionamento));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Estacionamento>> getAllEstacionamento(){
+        return ResponseEntity.status(HttpStatus.OK).body(estacionamentoService.findAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getOneEstacionamento(@PathVariable(value = "id")UUID id){
+        Optional<Estacionamento> estacionamentoOptional = estacionamentoService.findById(id);
+        if (!estacionamentoOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Vaga não encontrada!");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(estacionamentoOptional.get());
     }
 
 
