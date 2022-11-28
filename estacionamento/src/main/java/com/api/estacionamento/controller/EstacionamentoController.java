@@ -65,7 +65,19 @@ public class EstacionamentoController {
         }
         estacionamentoService.delete(estacionamentoOptional.get());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Estacionamento Liberado!");
+    }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> atualizarEstacionamento(@PathVariable(value = "id") UUID id, @RequestBody @Valid EstacionamentoDto estacionamentoDto){
+        Optional<Estacionamento> estacionamentoOptional = estacionamentoService.findById(id);
+        if (!estacionamentoOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Vaga não encontrada!");
+        }
+        var estacionamento = new Estacionamento();
+        BeanUtils.copyProperties(estacionamentoDto, estacionamento);
+        estacionamento.setId(estacionamentoOptional.get().getId());
+        estacionamento.setDataRegistro(estacionamentoOptional.get().getDataRegistro());
+        return ResponseEntity.status(HttpStatus.OK).body(estacionamentoService.save(estacionamento));
     }
 
 }
