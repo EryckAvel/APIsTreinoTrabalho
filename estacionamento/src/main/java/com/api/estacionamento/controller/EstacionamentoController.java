@@ -57,6 +57,15 @@ public class EstacionamentoController {
         return ResponseEntity.status(HttpStatus.OK).body(estacionamentoOptional.get());
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteEstacionamento(@PathVariable(value = "id") UUID id){
+        Optional<Estacionamento> estacionamentoOptional = estacionamentoService.findById(id);
+        if (!estacionamentoOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Estacionamento não encontrado!");
+        }
+        estacionamentoService.delete(estacionamentoOptional.get());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Estacionamento Liberado!");
 
+    }
 
 }

@@ -41,4 +41,8 @@ public class EstacionamentoService {
     public Optional<Estacionamento> findById(UUID id) {
         return estacionamentoRepository.findById(id);
     }
+
+    public void delete(Estacionamento estacionamento) {
+        estacionamentoRepository.delete(estacionamento);
+    }
 }
