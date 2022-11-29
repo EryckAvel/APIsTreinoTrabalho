@@ -4,11 +4,11 @@ import br.com.emp.gerenfunci.empresa.dto.FuncionarioDto;
 import br.com.emp.gerenfunci.empresa.models.Funcionario;
 import br.com.emp.gerenfunci.empresa.repository.CargoRepository;
 import br.com.emp.gerenfunci.empresa.repository.FuncionariosRepository;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController

@@ -24,10 +24,10 @@ public class WebSecurityConfig{
 
         return http
                 .authorizeHttpRequests()
-                //.requestMatchers("/estacionamento").permitAll()
-                //.requestMatchers(HttpMethod.DELETE, "/user/**").authenticated()
-                //.requestMatchers(HttpMethod.POST, "/user").permitAll()
-                .anyRequest().permitAll()
+                .requestMatchers("/estacionamento").permitAll()
+                .requestMatchers(HttpMethod.DELETE, "/user/**").authenticated()
+                .requestMatchers(HttpMethod.POST, "/user").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .userDetailsService(userDetailsService)
                 .httpBasic(Customizer.withDefaults())

@@ -20,18 +20,13 @@ public class UserModel implements UserDetails, Serializable {
     private String username;
     @Column(nullable = false)
     private String password;
-    @ManyToMany
-    @JoinTable(name = "tb_user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<RoleModel> roles;
 
 
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles;
+        return null;
     }
 
     @Override

@@ -2,8 +2,9 @@ package br.com.emp.gerenfunci.empresa.models;
 
 import br.com.emp.gerenfunci.empresa.models.enums.Genero;
 import br.com.emp.gerenfunci.empresa.models.enums.StatusSituacao;
-import jakarta.persistence.*;
 
+import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -25,7 +26,6 @@ public class Funcionario {
     @Column(nullable = false)
     private Genero genero;
     @ManyToOne
-    @
     @JoinColumn(nullable = false)
     private Cargo cargo;
     @Column(length = 9, precision = 2, nullable = false)
