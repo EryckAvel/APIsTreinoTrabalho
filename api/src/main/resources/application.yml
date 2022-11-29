@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc
+    url: jdbc:mysql://localhost:3306/Empresa
+    username: root
+    password: eryck3003
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+      jdbc:
+      lob:
+      non_contextual_creation: true
+      dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: false
