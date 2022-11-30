@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class PessoaDto {
 
@@ -11,7 +12,7 @@ public class PessoaDto {
     private String nome;
     @NotBlank
     private String sobrenome;
-    @NotBlank
+    @NotNull
     private int idade;
     @NotBlank
     //@CPF
