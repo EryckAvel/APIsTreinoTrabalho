@@ -3,7 +3,6 @@ package com.empresa.api.services;
 import com.empresa.api.model.Pessoa;
 import com.empresa.api.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

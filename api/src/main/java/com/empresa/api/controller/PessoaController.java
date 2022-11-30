@@ -3,7 +3,6 @@ package com.empresa.api.controller;
 import com.empresa.api.dto.PessoaDto;
 import com.empresa.api.model.Pessoa;
 import com.empresa.api.services.PessoaService;
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
