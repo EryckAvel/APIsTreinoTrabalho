@@ -13,7 +13,6 @@ public class PessoaDto {
     @NotBlank
     private String sobrenome;
     @NotNull
-    @NotEmpty
     private int idade;
     @NotBlank
     //@CPF
