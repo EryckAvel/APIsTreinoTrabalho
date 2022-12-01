@@ -1,4 +1,4 @@
-package io.github.eryckavel.vendas.services;
+package io.github.eryckavel.vendas.config.jwt;
 
 import io.github.eryckavel.vendas.VendasApplication;
 import io.github.eryckavel.vendas.model.Usuario;
