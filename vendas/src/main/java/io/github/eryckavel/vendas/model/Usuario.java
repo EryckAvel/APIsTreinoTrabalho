@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tb_user")
+@Table(name = "usuario")
 @Builder
 public class Usuario {
 

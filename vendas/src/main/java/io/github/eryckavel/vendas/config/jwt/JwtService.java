@@ -34,7 +34,8 @@ public class JwtService {
                 .builder()
                 .setSubject(usuario.getLogin())
                 .setExpiration(date)
-                .signWith(SignatureAlgorithm.HS512, chaveAssinatura).compact();
+                .signWith(SignatureAlgorithm.HS512, chaveAssinatura)
+                .compact();
     }
 
     private Claims obterClaims(String token) throws ExpiredJwtException {
