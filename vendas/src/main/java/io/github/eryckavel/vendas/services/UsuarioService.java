@@ -1,5 +1,6 @@
 package io.github.eryckavel.vendas.services;
 
+import io.github.eryckavel.vendas.exception.SenhaInvalidaException;
 import io.github.eryckavel.vendas.model.Usuario;
 import io.github.eryckavel.vendas.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,15 @@ public class UsuarioService implements UserDetailsService {
 
     @Autowired
     UsuarioRepository usuarioRepository;
+
+    public UserDetails autenticar(Usuario usuario){
+        UserDetails usuarioDetails = loadUserByUsername(usuario.getLogin());
+        boolean senhasBatem = encoder.matches(usuario.getSenha(), usuarioDetails.getPassword());
+        if (senhasBatem){
+            return usuarioDetails;
+        }
+        throw new SenhaInvalidaException();
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
