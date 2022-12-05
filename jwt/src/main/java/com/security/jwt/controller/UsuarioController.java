@@ -37,7 +37,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> atualizarUsuario(@PathParam("id") Long id, @RequestBody @Valid UsuarioDto dto){
+    public ResponseEntity<Object> atualizarUsuario(@PathVariable("id") Integer id, @RequestBody @Valid UsuarioDto dto){
         Optional<Usuario> usuarioOptional = usuarioService.findyById(id);
         if (!usuarioOptional.isPresent()){
             ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado!");

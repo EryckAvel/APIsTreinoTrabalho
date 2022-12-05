@@ -12,7 +12,7 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private Long id;
+    private Integer id;
     @Column(name = "NOME_COMPLETO", length = 200, nullable = false)
     private String nome;
     @Column(name = "EMAIL", length = 50, nullable = false, unique = true)
@@ -22,11 +22,11 @@ public class Usuario implements Serializable {
     @Column(name = "TELEFONE", length = 15, nullable = false)
     private String telefone;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

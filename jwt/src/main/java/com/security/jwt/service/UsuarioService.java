@@ -25,7 +25,7 @@ public class UsuarioService {
         return usuarioRepository.save(user);
     }
 
-    public Optional<Usuario> findyById(Long id) {
+    public Optional<Usuario> findyById(Integer id) {
         return usuarioRepository.findById(id);
     }
 }
