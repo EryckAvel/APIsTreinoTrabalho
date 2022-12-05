@@ -1,7 +1,9 @@
 package com.security.jwt.service;
 
 
+import com.security.jwt.config.jwt.TokenUtil;
 import com.security.jwt.dto.UsuarioDto;
+import com.security.jwt.model.Token;
 import com.security.jwt.model.Usuario;
 import com.security.jwt.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +45,16 @@ public class UsuarioService {
     public Boolean validarSenha(Usuario usuario) {
         String senha = usuarioRepository.getById(usuario.getId()).getSenha();
         return passwordEncoder.matches(usuario.getSenha(), senha);
+    }
+
+    public Token gerarToken(UsuarioDto dto) {
+        Usuario user = usuarioRepository.findByNomeOrEmail(dto.getNome(), dto.getEmail());
+        if(user != null){
+            Boolean valid = passwordEncoder.matches(dto.getSenha(), user.getSenha());
+            if(valid){
+                return new Token(TokenUtil.criarToken(user));
+            }
+        }
+        return null;
     }
 }

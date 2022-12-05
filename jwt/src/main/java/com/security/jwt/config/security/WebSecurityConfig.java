@@ -21,7 +21,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeHttpRequests()
-                .antMatchers(HttpMethod.GET, "/usuarios").permitAll()
+                .antMatchers(HttpMethod.GET,"/usuarios").permitAll()
+                .antMatchers(HttpMethod.POST, "/usuarios/login").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(new SecurityFilter(), UsernamePasswordAuthenticationFilter.class);
     }

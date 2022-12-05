@@ -1,6 +1,7 @@
 package com.security.jwt.controller;
 
 import com.security.jwt.dto.UsuarioDto;
+import com.security.jwt.model.Token;
 import com.security.jwt.model.Usuario;
 import com.security.jwt.service.UsuarioService;
 import org.springframework.beans.BeanUtils;
@@ -67,12 +68,12 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Object> validarSenha(@RequestBody Usuario usuario){
-        Boolean validSenha = usuarioService.validarSenha(usuario);
-        if (!validSenha){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email ou senha incorretos!");
+    public ResponseEntity<Token> logar(@RequestBody UsuarioDto dto){
+        Token token = usuarioService.gerarToken(dto);
+        if (token != null){
+            return ResponseEntity.status(HttpStatus.OK).body(token);
         }
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
 }
