@@ -25,6 +25,15 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.findAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> buscarFiltrada(@PathVariable("id") Integer id){
+        Optional<Usuario> usuarioOptional = usuarioService.findyById(id);
+        if (!usuarioOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado!");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioService.findyById(id));
+    }
+
     @PostMapping
     public ResponseEntity<Usuario> salvarUsuario(@RequestBody @Valid UsuarioDto dto){
         var user = new Usuario();
@@ -36,7 +45,7 @@ public class UsuarioController {
     public ResponseEntity<Object> atualizarUsuario(@PathVariable("id") Integer id, @RequestBody @Valid UsuarioDto dto){
         Optional<Usuario> usuarioOptional = usuarioService.findyById(id);
         if (!usuarioOptional.isPresent()){
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuario não encontrado!");
         }
         var user = new Usuario();
         BeanUtils.copyProperties(dto, user);
@@ -47,7 +56,7 @@ public class UsuarioController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deletarUsuario(@PathVariable("id") Integer id){
         Optional<Usuario> usuarioOptional = usuarioService.findyById(id);
-        if (usuarioOptional.isPresent()){
+        if (!usuarioOptional.isPresent()){
             ResponseEntity.status(HttpStatus.NOT_FOUND).body("usuario não encontrado!");
         }
         usuarioService.delete(usuarioOptional.get());
