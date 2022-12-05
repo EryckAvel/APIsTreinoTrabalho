@@ -1,19 +1,15 @@
 package com.security.jwt.controller;
 
 import com.security.jwt.dto.UsuarioDto;
-import com.security.jwt.dto.UsuarioDtoInsert;
 import com.security.jwt.model.Usuario;
 import com.security.jwt.service.UsuarioService;
-import org.apache.catalina.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Optional;
 
