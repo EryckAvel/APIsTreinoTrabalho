@@ -48,4 +48,14 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.save(user));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deletarUsuario(@PathVariable("id") Integer id){
+        Optional<Usuario> usuarioOptional = usuarioService.findyById(id);
+        if (usuarioOptional.isPresent()){
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body("usuario não encontrado!");
+        }
+        usuarioService.delete(usuarioOptional.get());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Usuario deletado");
+    }
+
 }
