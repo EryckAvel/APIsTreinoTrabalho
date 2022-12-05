@@ -7,6 +7,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,6 +21,7 @@ public class UsuarioController {
 
     @Autowired
     UsuarioService usuarioService;
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @GetMapping
     public ResponseEntity<List<Usuario>> listagemUsuarios(){
@@ -61,6 +64,15 @@ public class UsuarioController {
         }
         usuarioService.delete(usuarioOptional.get());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Usuario deletado");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Object> validarSenha(@RequestBody Usuario usuario){
+        Boolean validSenha = usuarioService.validarSenha(usuario);
+        if (!validSenha){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email ou senha incorretos!");
+        }
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
 }

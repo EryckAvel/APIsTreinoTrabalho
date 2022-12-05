@@ -5,6 +5,8 @@ import com.security.jwt.dto.UsuarioDto;
 import com.security.jwt.model.Usuario;
 import com.security.jwt.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,12 +18,17 @@ public class UsuarioService {
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
 
     public List<Usuario> findAll() {
         return usuarioRepository.findAll();
     }
 
     public Usuario save(Usuario user) {
+        String encoder = passwordEncoder.encode(user.getSenha());
+        user.setSenha(encoder);
         return usuarioRepository.save(user);
     }
 
@@ -31,5 +38,10 @@ public class UsuarioService {
 
     public void delete(Usuario usuario) {
         usuarioRepository.delete(usuario);
+    }
+
+    public Boolean validarSenha(Usuario usuario) {
+        String senha = usuarioRepository.getById(usuario.getId()).getSenha();
+        return passwordEncoder.matches(usuario.getSenha(), senha);
     }
 }
