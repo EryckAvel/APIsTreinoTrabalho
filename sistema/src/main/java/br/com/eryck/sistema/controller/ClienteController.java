@@ -29,14 +29,14 @@ public class ClienteController {
     @GetMapping("/{id}")
     public ResponseEntity<Object> buscarCliente(@PathVariable(value = "id")UUID id){
         Optional<Cliente> clienteOptional = clienteService.findById(id);
-        if (clienteOptional.isPresent()){
+        if (clienteOptional.isEmpty()){
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado!");
         }
         return ResponseEntity.status(HttpStatus.OK).body(clienteOptional.get());
     }
 
     @PostMapping
-    public ResponseEntity<Object> salvarCliente(@RequestBody @Valid ClienteDto dto){
+    public ResponseEntity<Cliente> salvarCliente(@RequestBody @Valid ClienteDto dto){
         var cliente = new Cliente();
         BeanUtils.copyProperties(dto, cliente);
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(cliente));
