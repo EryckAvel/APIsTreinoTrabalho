@@ -1,4 +1,4 @@
-package br.com.eryck.sistema.model.enuns;
+package br.com.eryck.sistema.model.enums;
 
 public enum StatusPedido {
 

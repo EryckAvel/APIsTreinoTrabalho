@@ -2,7 +2,6 @@ package br.com.eryck.sistema.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -20,22 +19,15 @@ public class Cliente implements Serializable {
     private String email;
     @Column(name = "cpf", nullable = false, unique = true, length = 11)
     private String cpf;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "endereco_id")
-    private Endereco endereco;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id")
-    private List<Pedido> pedidos;
 
     public Cliente() {
     }
 
-    public Cliente(UUID id, String nomeCompleto, String email, String cpf, Endereco endereco, List<Pedido> pedidos) {
+    public Cliente(UUID id, String nomeCompleto, String email, String cpf) {
         this.id = id;
         NomeCompleto = nomeCompleto;
         this.email = email;
         this.cpf = cpf;
-        this.endereco = endereco;
-        this.pedidos = pedidos;
     }
 
     public UUID getId() {
@@ -70,19 +62,4 @@ public class Cliente implements Serializable {
         this.cpf = cpf;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
-    public List<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
-    }
 }
