@@ -23,7 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeHttpRequests()
                 .antMatchers(HttpMethod.GET,"/usuarios").permitAll()
                 .antMatchers(HttpMethod.POST, "/usuarios/login").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().permitAll();
         http.addFilterBefore(new SecurityFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 

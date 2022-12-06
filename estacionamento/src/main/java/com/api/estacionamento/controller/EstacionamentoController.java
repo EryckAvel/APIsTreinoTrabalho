@@ -52,7 +52,7 @@ public class EstacionamentoController {
     public ResponseEntity<Object> getOneEstacionamento(@PathVariable(value = "id")UUID id){
         Optional<Estacionamento> estacionamentoOptional = estacionamentoService.findById(id);
         if (!estacionamentoOptional.isPresent()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Vaga não encontrada!");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Vaga não encontrada!");
         }
         return ResponseEntity.status(HttpStatus.OK).body(estacionamentoOptional.get());
     }

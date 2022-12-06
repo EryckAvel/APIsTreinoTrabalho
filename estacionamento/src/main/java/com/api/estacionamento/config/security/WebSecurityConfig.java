@@ -27,7 +27,7 @@ public class WebSecurityConfig{
                 .requestMatchers("/estacionamento").permitAll()
                 .requestMatchers(HttpMethod.DELETE, "/user/**").authenticated()
                 .requestMatchers(HttpMethod.POST, "/user").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .userDetailsService(userDetailsService)
                 .httpBasic(Customizer.withDefaults())
