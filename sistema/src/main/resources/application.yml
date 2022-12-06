@@ -8,10 +8,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     properties:
       hibernate:
-      jdbc:
-      lob:
-      non_contextual_creation: true
-      dialect: org.hibernate.dialect.MySQL8Dialect
-    show-sql: false
+      show_sql: true
+      format_sql: true
+

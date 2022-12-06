@@ -2,16 +2,17 @@ package br.com.eryck.sistema.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table
+@Table(name = "tb_endereco")
 public class Endereco implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     @Column(name = "CEP", nullable = false, length = 8)
     private String cep;
@@ -25,6 +26,18 @@ public class Endereco implements Serializable {
     private String cidade;
     @Column(name = "Complemento", nullable = true, length = 100)
     private String complemento;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Endereco endereco)) return false;
+        return Objects.equals(getId(), endereco.getId()) && Objects.equals(getCep(), endereco.getCep()) && Objects.equals(getRua(), endereco.getRua()) && Objects.equals(getNumero(), endereco.getNumero()) && Objects.equals(getBairro(), endereco.getBairro()) && Objects.equals(getCidade(), endereco.getCidade()) && Objects.equals(getComplemento(), endereco.getComplemento());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getCep(), getRua(), getNumero(), getBairro(), getCidade(), getComplemento());
+    }
 
     public Endereco() {
     }

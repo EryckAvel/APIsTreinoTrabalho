@@ -3,14 +3,17 @@ package br.com.eryck.sistema.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 @Table(name = "tb_produto")
 public class Produto implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     @Column(name = "nome_produto", nullable = false, length = 255)
     private String nome;
@@ -20,6 +23,18 @@ public class Produto implements Serializable {
     private Integer estoque;
     @Column(name = "valor_unitario", nullable = false, precision = 9, scale = 2)
     private BigDecimal valorUnitario;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Produto produto)) return false;
+        return Objects.equals(getId(), produto.getId()) && Objects.equals(getNome(), produto.getNome()) && Objects.equals(getCategoria(), produto.getCategoria()) && Objects.equals(getEstoque(), produto.getEstoque()) && Objects.equals(getValorUnitario(), produto.getValorUnitario());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getNome(), getCategoria(), getEstoque(), getValorUnitario());
+    }
 
     public Produto() {
     }
