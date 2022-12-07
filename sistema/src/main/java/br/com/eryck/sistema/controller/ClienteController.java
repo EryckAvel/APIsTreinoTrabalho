@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/clientes")
@@ -35,7 +34,6 @@ public class ClienteController {
         return ResponseEntity.status(HttpStatus.OK).body(clienteOptional.get());
     }
 
-
     @PostMapping
     public ResponseEntity<Cliente> salvarCliente(@RequestBody @Valid ClienteDto dto){
         var cliente = new Cliente();
@@ -52,6 +50,16 @@ public class ClienteController {
         var cliente = new Cliente();
         BeanUtils.copyProperties(dto, cliente);
         return ResponseEntity.status(HttpStatus.OK).body(clienteService.save(cliente));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deletarCliente(@PathVariable(value = "id")Long id){
+        Optional<Cliente> clienteOptional = clienteService.findById(id);
+        if (!clienteOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado!");
+        }
+        clienteService.delete(clienteOptional.get());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Cliente deletado!");
     }
 
 }
