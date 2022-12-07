@@ -27,13 +27,14 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> buscarCliente(@PathVariable(value = "id")UUID id){
+    public ResponseEntity<Object> buscarCliente(@PathVariable(value = "id") Long id){
         Optional<Cliente> clienteOptional = clienteService.findById(id);
         if (clienteOptional.isEmpty()){
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado!");
         }
         return ResponseEntity.status(HttpStatus.OK).body(clienteOptional.get());
     }
+
 
     @PostMapping
     public ResponseEntity<Cliente> salvarCliente(@RequestBody @Valid ClienteDto dto){
@@ -43,7 +44,7 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> atualizarCliente(@PathVariable(value = "id")UUID id, ClienteDto dto){
+    public ResponseEntity<Object> atualizarCliente(@PathVariable(value = "id")Long id, ClienteDto dto){
         Optional<Cliente> clienteOptional = clienteService.findById(id);
         if (clienteOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado!");

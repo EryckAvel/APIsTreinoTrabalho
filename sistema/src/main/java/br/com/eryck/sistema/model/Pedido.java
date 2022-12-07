@@ -19,7 +19,7 @@ public class Pedido implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private Long id;
     @Column(name = "data_pedido")
     private Date dataPedido;
     @ManyToOne
@@ -59,7 +59,7 @@ public class Pedido implements Serializable {
     public Pedido() {
     }
 
-    public Pedido(UUID id, Date dataPedido, Cliente cliente, StatusPedido status, List<ItensPedido> itensProdutos, BigDecimal total) {
+    public Pedido(Long id, Date dataPedido, Cliente cliente, StatusPedido status, List<ItensPedido> itensProdutos, BigDecimal total) {
         this.id = id;
         this.dataPedido = dataPedido;
         this.cliente = cliente;
@@ -68,11 +68,11 @@ public class Pedido implements Serializable {
         Total = total;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

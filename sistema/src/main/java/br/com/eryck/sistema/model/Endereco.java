@@ -13,7 +13,7 @@ public class Endereco implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private Long id;
     @Column(name = "CEP", nullable = false, length = 8)
     private String cep;
     @Column(name = "rua", nullable = false, length = 100)
@@ -42,7 +42,7 @@ public class Endereco implements Serializable {
     public Endereco() {
     }
 
-    public Endereco(UUID id, String cep, String rua, String numero, String bairro, String cidade, String complemento) {
+    public Endereco(Long id, String cep, String rua, String numero, String bairro, String cidade, String complemento) {
         this.id = id;
         this.cep = cep;
         this.rua = rua;
@@ -52,11 +52,11 @@ public class Endereco implements Serializable {
         this.complemento = complemento;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

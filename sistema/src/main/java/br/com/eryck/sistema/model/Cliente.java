@@ -7,10 +7,13 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "tb_cliente")
-public class Cliente{
+public class Cliente implements Serializable{
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private Long id;
     @Column(nullable = false, length = 250)
     private String nomeCompleto;
     @Column(nullable = false, unique = true, length = 11)
@@ -19,17 +22,17 @@ public class Cliente{
     public Cliente() {
     }
 
-    public Cliente(UUID id, String nomeCompleto, String cpf) {
+    public Cliente(Long id, String nomeCompleto, String cpf) {
         this.id = id;
         this.nomeCompleto = nomeCompleto;
         this.cpf = cpf;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -40,7 +43,6 @@ public class Cliente{
     public void setNomeCompleto(String nomeCompleto) {
         this.nomeCompleto = nomeCompleto;
     }
-
 
     public String getCpf() {
         return cpf;
