@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/produtos")
@@ -34,7 +33,7 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> bucarProduto(@PathVariable(value = "id")UUID id){
+    public ResponseEntity<Object> bucarProduto(@PathVariable(value = "id")Long id){
         Optional<Produto> produtoOptional = produtoService.findById(id);
         if(!produtoOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado!");
@@ -42,4 +41,26 @@ public class ProdutoController {
         return ResponseEntity.status(HttpStatus.OK).body(produtoOptional.get());
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> alterarProduto(@PathVariable(value = "id") Long id, @RequestBody @Valid ProdutoDto dto){
+        Optional<Produto> produtoOptional = produtoService.findById(id);
+        if (!produtoOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado!");
+        }
+        var produto = new Produto();
+        BeanUtils.copyProperties(dto, produto);
+        produto.setId(produtoOptional.get().getId());
+        return ResponseEntity.status(HttpStatus.OK).body(produtoService.save(produto));
+
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deletarProduto(@PathVariable(value = "id") Long id){
+        Optional<Produto> produtoOptional = produtoService.findById(id);
+        if (!produtoOptional.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Produto não encontrado!");
+        }
+        produtoService.delete(produtoOptional.get());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Produto deletado!");
+    }
 }
