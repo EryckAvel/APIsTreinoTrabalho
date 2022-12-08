@@ -32,7 +32,7 @@ public class Pedido implements Serializable {
     @Column(name = "status")
     private StatusPedido status;
     @OneToMany(mappedBy = "pedido")
-    private List<ItensPedido> itensProdutos;
+    private List<ItensPedido> itensPedidos;
     @Column(name = "total", nullable = false)
     private BigDecimal Total;
 
@@ -40,12 +40,12 @@ public class Pedido implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Pedido pedido)) return false;
-        return Objects.equals(getId(), pedido.getId()) && Objects.equals(getDataPedido(), pedido.getDataPedido()) && Objects.equals(getCliente(), pedido.getCliente()) && Objects.equals(getEndereco(), pedido.getEndereco()) && getStatus() == pedido.getStatus() && Objects.equals(getItensProdutos(), pedido.getItensProdutos()) && Objects.equals(getTotal(), pedido.getTotal());
+        return Objects.equals(getId(), pedido.getId()) && Objects.equals(getDataPedido(), pedido.getDataPedido()) && Objects.equals(getCliente(), pedido.getCliente()) && Objects.equals(getEndereco(), pedido.getEndereco()) && getStatus() == pedido.getStatus() && Objects.equals(getItensPedidos(), pedido.getItensPedidos()) && Objects.equals(getTotal(), pedido.getTotal());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getDataPedido(), getCliente(), getEndereco(), getStatus(), getItensProdutos(), getTotal());
+        return Objects.hash(getId(), getDataPedido(), getCliente(), getEndereco(), getStatus(), getItensPedidos(), getTotal());
     }
 
     public Endereco getEndereco() {
@@ -59,12 +59,12 @@ public class Pedido implements Serializable {
     public Pedido() {
     }
 
-    public Pedido(Long id, Date dataPedido, Cliente cliente, StatusPedido status, List<ItensPedido> itensProdutos, BigDecimal total) {
+    public Pedido(Long id, Date dataPedido, Cliente cliente, StatusPedido status, List<ItensPedido> itensPedidos, BigDecimal total) {
         this.id = id;
         this.dataPedido = dataPedido;
         this.cliente = cliente;
         this.status = status;
-        this.itensProdutos = itensProdutos;
+        this.itensPedidos = itensPedidos;
         Total = total;
     }
 
@@ -100,12 +100,12 @@ public class Pedido implements Serializable {
         this.status = status;
     }
 
-    public List<ItensPedido> getItensProdutos() {
-        return itensProdutos;
+    public List<ItensPedido> getItensPedidos() {
+        return itensPedidos;
     }
 
-    public void setItensProdutos(List<ItensPedido> itensProdutos) {
-        this.itensProdutos = itensProdutos;
+    public void setItensPedidos(List<ItensPedido> itensPedidos) {
+        this.itensPedidos = itensPedidos;
     }
 
     public BigDecimal getTotal() {
