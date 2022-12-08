@@ -42,13 +42,14 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> atualizarCliente(@PathVariable(value = "id")Long id, ClienteDto dto){
+    public ResponseEntity<Object> atualizarCliente(@PathVariable(value = "id")Long id,@RequestBody @Valid ClienteDto dto){
         Optional<Cliente> clienteOptional = clienteService.findById(id);
-        if (clienteOptional.isPresent()){
+        if (!clienteOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado!");
         }
         var cliente = new Cliente();
         BeanUtils.copyProperties(dto, cliente);
+        cliente.setId(clienteOptional.get().getId());
         return ResponseEntity.status(HttpStatus.OK).body(clienteService.save(cliente));
     }
 

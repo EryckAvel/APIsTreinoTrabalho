@@ -31,6 +31,7 @@ public class ClienteService {
     }
 
 
+    @Transactional
     public void delete(Cliente cliente) {
         clienteRepository.delete(cliente);
     }
