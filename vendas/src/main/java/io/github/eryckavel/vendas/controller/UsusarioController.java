@@ -60,4 +60,7 @@ public class UsusarioController {
         }
     }
 
+    //token eryck eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlcnljayIsImV4cCI6MTY3MDY3NzQ3NH0.bFO_xdWfJ-LmLCPNMKjzvCtR93UdvBpf4U3YfK1eWXNwzBp-4YqTkCkMlaEpKm4U1gJ5NU8sY9ce9H7K9DS02Q
+    //token duda eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJNYXJpYSBFZHVhcmRhIiwiZXhwIjoxNjcwNjc3ODg0fQ.jyofqaheLuz8qAjU2hJhfKDE9FDoWxkPTCWSQj22WOhIoiDauwMQNafVLtZPmwfhvQN0pj1l20Ctb650zEyfOw
+
 }

@@ -6,6 +6,8 @@ public class TokenDto {
     private String token;
 
     public TokenDto(String login, String token) {
+        this.login = login;
+        this.token = token;
     }
 
     public String getLogin() {
