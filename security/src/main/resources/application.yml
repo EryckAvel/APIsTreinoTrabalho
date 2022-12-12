@@ -5,12 +5,6 @@ spring:
     username: root
     password: eryck3003
 
-  security:
-    user:
-      name: eryck
-      password: 3003
-      roles: ADMIN
-
   jpa:
     hibernate:
       ddl-auto: update
