@@ -10,6 +10,4 @@ public class ItensPedidoService {
     @Autowired
     ItensPedidoRepsitory itensPedidoRepsitory;
 
-
-
 }

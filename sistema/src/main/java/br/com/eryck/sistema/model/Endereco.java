@@ -26,6 +26,17 @@ public class Endereco implements Serializable {
     private String cidade;
     @Column(name = "Complemento", nullable = true, length = 100)
     private String complemento;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
     @Override
     public boolean equals(Object o) {

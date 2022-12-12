@@ -25,35 +25,22 @@ public class Pedido implements Serializable {
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
-    @ManyToOne
-    @JoinColumn(name = "endereco_id")
-    private Endereco endereco;
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private StatusPedido status;
     @OneToMany(mappedBy = "pedido")
     private List<ItensPedido> itensPedidos;
-    @Column(name = "total", nullable = false)
-    private BigDecimal Total;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Pedido pedido)) return false;
-        return Objects.equals(getId(), pedido.getId()) && Objects.equals(getDataPedido(), pedido.getDataPedido()) && Objects.equals(getCliente(), pedido.getCliente()) && Objects.equals(getEndereco(), pedido.getEndereco()) && getStatus() == pedido.getStatus() && Objects.equals(getItensPedidos(), pedido.getItensPedidos()) && Objects.equals(getTotal(), pedido.getTotal());
+        return Objects.equals(getId(), pedido.getId()) && Objects.equals(getDataPedido(), pedido.getDataPedido()) && Objects.equals(getCliente(), pedido.getCliente()) && getStatus() == pedido.getStatus() && Objects.equals(getItensPedidos(), pedido.getItensPedidos());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getDataPedido(), getCliente(), getEndereco(), getStatus(), getItensPedidos(), getTotal());
-    }
-
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+        return Objects.hash(getId(), getDataPedido(), getCliente(), getStatus(), getItensPedidos());
     }
 
     public Pedido() {
@@ -65,7 +52,7 @@ public class Pedido implements Serializable {
         this.cliente = cliente;
         this.status = status;
         this.itensPedidos = itensPedidos;
-        Total = total;
+        //Total = total;
     }
 
     public Long getId() {
@@ -108,6 +95,7 @@ public class Pedido implements Serializable {
         this.itensPedidos = itensPedidos;
     }
 
+    /*
     public BigDecimal getTotal() {
         return Total;
     }
@@ -115,4 +103,6 @@ public class Pedido implements Serializable {
     public void setTotal(BigDecimal total) {
         Total = total;
     }
+    */
+
 }

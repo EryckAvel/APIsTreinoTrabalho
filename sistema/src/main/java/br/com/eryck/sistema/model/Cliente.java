@@ -2,6 +2,7 @@ package br.com.eryck.sistema.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -18,6 +19,17 @@ public class Cliente implements Serializable{
     private String nomeCompleto;
     @Column(nullable = false, unique = true, length = 11)
     private String cpf;
+
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+    private List<Pedido> pedidos;
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
 
     public Cliente() {
     }
