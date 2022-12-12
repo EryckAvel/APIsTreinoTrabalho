@@ -2,6 +2,7 @@ package br.com.eryck.sistema.model;
 
 
 import br.com.eryck.sistema.model.enums.StatusPedido;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -22,6 +23,7 @@ public class Pedido implements Serializable {
     private Long id;
     @Column(name = "data_pedido")
     private Date dataPedido;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;

@@ -1,5 +1,7 @@
 package br.com.eryck.sistema.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -26,6 +28,7 @@ public class Endereco implements Serializable {
     private String cidade;
     @Column(name = "Complemento", nullable = true, length = 100)
     private String complemento;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;

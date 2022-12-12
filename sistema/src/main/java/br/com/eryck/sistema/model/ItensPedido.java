@@ -1,6 +1,8 @@
 package br.com.eryck.sistema.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -15,6 +17,7 @@ public class ItensPedido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "produto_id")
     private Produto produto;
@@ -22,6 +25,7 @@ public class ItensPedido implements Serializable {
     private Integer quantidade;
     @Column(name = "valor_total", nullable = false, precision = 9, scale = 2)
     private BigDecimal totalItem;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
