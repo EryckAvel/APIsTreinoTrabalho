@@ -7,10 +7,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity
 @Table(name = "tb_pedidos")
@@ -22,7 +22,7 @@ public class Pedido implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "data_pedido")
-    private Date dataPedido;
+    private LocalDateTime dataPedido;
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cliente_id")
@@ -48,7 +48,7 @@ public class Pedido implements Serializable {
     public Pedido() {
     }
 
-    public Pedido(Long id, Date dataPedido, Cliente cliente, StatusPedido status, List<ItensPedido> itensPedidos, BigDecimal total) {
+    public Pedido(Long id, LocalDateTime dataPedido, Cliente cliente, StatusPedido status, List<ItensPedido> itensPedidos, BigDecimal total) {
         this.id = id;
         this.dataPedido = dataPedido;
         this.cliente = cliente;
@@ -65,11 +65,11 @@ public class Pedido implements Serializable {
         this.id = id;
     }
 
-    public Date getDataPedido() {
+    public LocalDateTime getDataPedido() {
         return dataPedido;
     }
 
-    public void setDataPedido(Date dataPedido) {
+    public void setDataPedido(LocalDateTime dataPedido) {
         this.dataPedido = dataPedido;
     }
 

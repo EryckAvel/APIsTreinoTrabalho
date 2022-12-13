@@ -16,6 +16,18 @@ public class Cliente implements Serializable{
     private String nomeCompleto;
     @Column(nullable = false, unique = true, length = 11)
     private String cpf;
+    @OneToOne
+    @JoinColumn(name = "endereco_id")
+    private Endereco endereco;
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
 
     public Cliente() {
     }
