@@ -45,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .and()
                 .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
+                /*
                     .antMatchers(HttpMethod.GET,"/clientes")
                         .hasAnyRole("USER")
                     .antMatchers(HttpMethod.GET,"/pedidos")
@@ -53,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                         .hasAnyRole("ADMIN","USER")
                     .antMatchers(HttpMethod.GET,"/usuarios")
                         .hasRole("ADMIN")
+                        */
                 .anyRequest().permitAll()
                 .and()
                 .csrf().disable();

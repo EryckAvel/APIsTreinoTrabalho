@@ -17,9 +17,8 @@ public class Produto {
     private String nome;
     @NotEmpty(message = "{campo.descricao.obrigatorio}")
     private String descricao;
-    @Column(name = "{campo.preco.obrigatorio}")
     @NotNull(message = "Campo preço e obrigatorio")
-    private BigDecimal preco;
+    private BigDecimal precoUnitario;
 
     public Produto() {
     }
@@ -28,7 +27,7 @@ public class Produto {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
-        this.preco = preco;
+        this.precoUnitario = preco;
     }
 
     public Integer getId() {
@@ -55,12 +54,12 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public BigDecimal getPreco() {
-        return preco;
+    public BigDecimal getPrecoUnitario() {
+        return precoUnitario;
     }
 
-    public void setPreco(BigDecimal preco) {
-        this.preco = preco;
+    public void setPrecoUnitario(BigDecimal precoUnitario) {
+        this.precoUnitario = precoUnitario;
     }
 
     @Override
@@ -68,11 +67,11 @@ public class Produto {
         if (this == o) return true;
         if (!(o instanceof Produto)) return false;
         Produto produto = (Produto) o;
-        return Objects.equals(id, produto.id) && Objects.equals(nome, produto.nome) && Objects.equals(descricao, produto.descricao) && Objects.equals(preco, produto.preco);
+        return Objects.equals(id, produto.id) && Objects.equals(nome, produto.nome) && Objects.equals(descricao, produto.descricao) && Objects.equals(precoUnitario, produto.precoUnitario);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, descricao, preco);
+        return Objects.hash(id, nome, descricao, precoUnitario);
     }
 }
