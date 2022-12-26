@@ -27,7 +27,7 @@ public class CadastroDeProduto {
         Produto p2 = produtoDAO.buscarNome(nome);
         System.out.println(p2.getPreco());
         BigDecimal pd = produtoDAO.buscarPreco(nome);
-        System.out.println(pd);
+        System.out.println(pd)  ;
     }
 
     public static void cadastrar(){

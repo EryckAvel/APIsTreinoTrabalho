@@ -3,6 +3,7 @@ package com.alura.model;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,15 +17,18 @@ public class Pedido {
     @Column(name = "data_geracao")
     private LocalDate dataGeracao = LocalDate.now();
     @ManyToOne
-    @Column(name = "id_cliente")
     private Cliente cliente;
     @Column(name = "valor_total")
-    private BigDecimal valorTotal;
-    @OneToMany
+    private BigDecimal valorTotal = BigDecimal.ZERO;
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     @Column(name = "itens")
-    private List<ItensPedido> itens;
+    private List<ItensPedido> itens = new ArrayList<>();
 
     public Pedido() {
+    }
+
+    public Pedido(Cliente cliente){
+        this.cliente = cliente;
     }
 
     public Pedido(Long id, LocalDate dataGeracao, Cliente cliente, BigDecimal valorTotal) {
@@ -32,6 +36,14 @@ public class Pedido {
         this.dataGeracao = dataGeracao;
         this.cliente = cliente;
         this.valorTotal = valorTotal;
+    }
+
+    public void adcionarItem(ItensPedido item){
+
+        item.setPedido(this);
+        this.itens.add(item);
+        this.valorTotal = this.valorTotal.add(item.getValor());
+
     }
 
     public Long getId() {

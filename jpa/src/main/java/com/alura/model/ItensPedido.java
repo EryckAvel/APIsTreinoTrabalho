@@ -18,10 +18,8 @@ public class ItensPedido {
     @Column(name = "quantidade")
     private Integer quantidade;
     @ManyToOne
-    @Column(name = "id_produto")
     private Produto produto;
     @ManyToOne
-    @Column(name = "id_pedido")
     private Pedido pedido;
 
     public ItensPedido() {
@@ -30,6 +28,7 @@ public class ItensPedido {
     public ItensPedido(Integer quantidade, Produto produto, Pedido pedido) {
         this.quantidade = quantidade;
         this.produto = produto;
+        this.precoUnitario = produto.getPreco();
         this.pedido = pedido;
     }
 
@@ -71,5 +70,9 @@ public class ItensPedido {
 
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
+    }
+
+    public BigDecimal getValor() {
+        return precoUnitario.multiply(new BigDecimal(quantidade));
     }
 }

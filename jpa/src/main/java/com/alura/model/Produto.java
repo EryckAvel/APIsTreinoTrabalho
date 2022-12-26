@@ -21,9 +21,7 @@ public class Produto {
     @Column(name = "data_cadastro")
     private LocalDate dataCadastro = LocalDate.now();
     //@Enumerated(EnumType.STRING)
-
     @ManyToOne
-    @JoinColumn(name = "categoria_id_categ")
     private Categoria categoria;
 
     public Produto() {

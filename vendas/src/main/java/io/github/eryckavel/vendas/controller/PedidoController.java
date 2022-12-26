@@ -10,6 +10,7 @@ import io.github.eryckavel.vendas.model.enums.StatusPedido;
 import io.github.eryckavel.vendas.services.PedidosServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -29,9 +30,9 @@ public class PedidoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public  Integer save(@RequestBody @Valid PedidoDto dto){
+    public ResponseEntity<Pedido> save(@RequestBody @Valid PedidoDto dto){
         Pedido pedido = pedidosServices.salvar(dto);
-        return pedido.getId();
+        return ResponseEntity.status(HttpStatus.CREATED).body(pedido);
     }
 
     @GetMapping("/{id}")
